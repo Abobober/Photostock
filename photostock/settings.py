@@ -55,10 +55,7 @@ ROOT_URLCONF = 'photostock.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            "templates",
-            "photos/templates/photos"
-            ],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,7 +65,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
         },
-    },
+    },  
 ]
 
 WSGI_APPLICATION = 'photostock.wsgi.application'
