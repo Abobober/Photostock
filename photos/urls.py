@@ -5,7 +5,9 @@ from .views import (
     PhotoDetailView,
     PhotoCreateView,
     PhotoUpdateView,
-    PhotoDeleteView
+    PhotoDeleteView,
+    DownloadThumbnailView,
+    DownloadOriginalImageView,
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -19,6 +21,9 @@ urlpatterns = [
     path('photo/create/', PhotoCreateView.as_view(), name='create'),
     path('photo/<int:pk>/update/', PhotoUpdateView.as_view(), name='update'),
     path('photo/<int:pk>/delete/', PhotoDeleteView.as_view(), name='delete'),
+    path('download_original/<int:pk>/', DownloadOriginalImageView.as_view(), name='download_original'),
+    path('download_thumbnail/<int:pk>/', DownloadThumbnailView.as_view(), name='download_thumbnail'),
+    
 ]
 
 

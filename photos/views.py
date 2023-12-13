@@ -1,9 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Photo
+from urllib import request
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
+from django.http import HttpResponse
+
 
 class PhotoListView(ListView):
     model = Photo
@@ -31,6 +34,29 @@ class PhotoDetailView(DetailView):
     model = Photo
     template_name = 'photos/detail.html'
     context_object_name = 'photo'
+
+
+class DownloadThumbnailView(DetailView):
+    def get(self, request, pk):
+        instance = get_object_or_404(Photo, pk=pk)
+        thumbnail_data = instance.image_thumbnail.read()
+        
+        response = HttpResponse(thumbnail_data, content_type='image/jpeg')
+        response['Content-Disposition'] = f'attachment; filename="{instance.image.name}"'
+
+        return response
+
+
+class DownloadOriginalImageView(LoginRequiredMixin, DetailView):
+    login_url = '/login/'
+    def get(self, request, pk):
+        instance = get_object_or_404(Photo, pk=pk)
+        original_image_data = instance.image.read()
+        
+        response = HttpResponse(original_image_data, content_type='image/jpeg')
+        response['Content-Disposition'] = f'attachment; filename="{instance.image.name}"'
+
+        return response
 
 
 class PhotoCreateView(LoginRequiredMixin, CreateView):

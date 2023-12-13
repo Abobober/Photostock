@@ -23,6 +23,8 @@
       {% endfor %}
     </ul>
     <p>{{ photo.description }}</p>
+    <a href="{% url 'photo:download_thumbnail' pk=photo.id %}" class="btn btn-success mb-4">Download Thumbnail</a>
+    <a href="{% url 'photo:download_original' pk=photo.id %}" class="btn btn-success mb-4">Download Original</a>
   </div>
 </div>
 

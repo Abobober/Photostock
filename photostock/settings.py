@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'users',
     'crispy_forms',
     'bootstrap4',
-    'crispy_bootstrap4',    
+    'crispy_bootstrap4',
+    'imagekit',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
