@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'crispy_bootstrap4',
     'imagekit',
+    'watermarker',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -57,6 +58,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
 ROOT_URLCONF = 'photostock.urls'

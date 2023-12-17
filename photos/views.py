@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Photo
 from urllib import request
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
 from django.http import HttpResponse
-
+from django.contrib import messages
 
 class PhotoListView(ListView):
     model = Photo
@@ -49,8 +49,18 @@ class DownloadThumbnailView(DetailView):
 
 class DownloadOriginalImageView(LoginRequiredMixin, DetailView):
     login_url = '/login/'
+
     def get(self, request, pk):
         instance = get_object_or_404(Photo, pk=pk)
+
+        author = self.request.user
+        uploaded_photos_count = Photo.objects.filter(author=author).count()
+        min_photos_required = 3
+
+        if uploaded_photos_count < min_photos_required:
+            messages.error(self.request, f'You need to upload {uploaded_photos_count} more photo(s) before you can download original from the site.')
+            return redirect('photo:detail', pk=pk)
+
         original_image_data = instance.image.read()
         
         response = HttpResponse(original_image_data, content_type='image/jpeg')

@@ -17,7 +17,6 @@ class Photo(models.Model):
                                      processors=[Thumbnail(600, 360)],
                                      format='JPEG',
                                      options={'quality': 80})
-    watermarked_image = models.ImageField(upload_to='watermarked_images', blank=True, null=True)
 
     def __str__(self) -> str:
         return self.title
