@@ -15,7 +15,7 @@
 </div>
 <div class="row pb-5">
   <div class="col-md-8">
-    <img src="{{photo.image.url|watermark:"sample,scale=R50%,tile=1,greyscale=1,position=tr,opacity=30" }}" alt="" width="100%" />
+    <img src="{{photo.image.url|watermark:"sample,scale=R50%,tile=1,greyscale=1,position=tr,opacity=40" }}" alt="" width="100%" />
   </div>
   <div class="col-md-4">
     <h4>More about this photo:</h4>
@@ -32,6 +32,9 @@
             {{ message }}
         {% endfor %}
     </p>
+    <style>
+      .messages { color: red; }
+    </style>
 {% endif %}
     <a href="{% url 'photo:download_original' pk=photo.id %}" class="btn btn-success mb-4">Download Original</a>
   </div>
